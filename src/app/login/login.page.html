@@ -1,0 +1,33 @@
+<ion-content color="medium" [fullscreen]="true">
+  <img src="assets/etec2.png" alt="Etec">
+  
+  
+  <IonLabel>
+    <ion-item class="ion-text-center text-bold line-bottom" lines="none">
+      <ion-label>
+        Digite seu E-mail e Senha
+      </ion-label>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">E-mail</ion-label>
+      <ion-input type="email" placeholder="Digite seu E-mail"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="line-bottom">
+      <ion-label position="stacked">Senha</ion-label>
+      <ion-input type="password" placeholder="Digite sua Senha"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label>Manter Logado</ion-label>
+      <ion-checkbox slot="start"></ion-checkbox>
+    </ion-item>
+  </IonLabel>
+
+  <ion-card>
+    <ion-button expand="block" routerLink="/home" color="dark">ENTRAR</ion-button>
+    <ion-button routerLink="/registro" expand="block" fill="outline" color="medium">REGISTRAR</ion-button>
+  </ion-card>
+
+</ion-content>
