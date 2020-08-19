@@ -12,7 +12,7 @@
 
       <ion-item lines="none">
         <ion-label position="stacked">E-mail</ion-label>
-        <ion-input formControLName="email" type="email" placeholder="Digite seu E-mail"></ion-input>
+        <ion-input formControlName="email" type="email" placeholder="Digite seu E-mail"></ion-input>
         <ng-container *ngFor="let erro of mensagens_validacao.email">
           <span class="msg-erro"
             *ngIf="formLogin.get('email').hasError(erro.tipo) && (formLogin.get('email').dirty || formLogin.get('email').touched)">
@@ -23,7 +23,13 @@
 
       <ion-item lines="none" class="line-bottom">
         <ion-label position="stacked">Senha</ion-label>
-        <ion-input formControLName="senha" type="password" placeholder="Digite sua Senha"></ion-input>
+        <ion-input formControlName="senha" type="password" placeholder="Digite sua Senha"></ion-input>
+        <ng-container *ngFor="let erro of mensagens_validacao.senha">
+          <span class="msg-erro"
+            *ngIf="formLogin.get('senha').hasError(erro.tipo) && (formLogin.get('senha').dirty || formLogin.get('senha').touched)">
+            {{erro.mensagem}}
+          </span>
+        </ng-container>
       </ion-item>
 
       <ion-item lines="none">
@@ -33,7 +39,7 @@
     </ion-card>
 
     <ion-card>
-      <ion-button expand="block" routerLink="/home" color="dark">ENTRAR</ion-button>
+      <ion-button expand="block" (click)="login()" color="dark">ENTRAR</ion-button>
       <ion-button routerLink="/registro" expand="block" fill="outline" color="medium">REGISTRAR</ion-button>
     </ion-card>
 
