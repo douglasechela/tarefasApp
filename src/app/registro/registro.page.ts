@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { CpfValidator } from '../validators/cpfvalidators';
+import { ComparacaoValidator } from '../validators/comparacao-validators';
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -19,7 +22,8 @@ export class RegistroPage implements OnInit {
     cpf: [
       {tipo: 'required', mensagem: 'O campo CPF é obrigatório!'},
       {tipo: 'minLength', mensagem: 'O CPF pecisa ter pelo menos 11 caracteres!'},
-      {tipo: 'maxLength', mensagem: 'O CPF só pode ter no máximo 14 caracteres!'}
+      {tipo: 'maxLength', mensagem: 'O CPF só pode ter no máximo 14 caracteres!'},
+      {tipo: 'invalido', mensagem: 'CPF inválido!'}
     ],
     dataNascimento: [
       {tipo: 'required', mensagem: 'O campo Data de Nascimento é obrigatório!'},
@@ -28,7 +32,8 @@ export class RegistroPage implements OnInit {
       {tipo: 'required', mensagem: 'O campo Gênero é obrigatório!'},
     ],
      celular: [
-      {tipo: 'maxLength', mensagem: 'O número do celular pode ter no máximo 16 caracteres!'},
+      {tipo: 'required', mensagem: 'O campo celular é obrigatório!'},
+      {tipo: 'maxLength', mensagem: 'O número do celular pode ter no máximo 16 caracteres!'}
     ],
     email: [
       {tipo: 'required', mensagem: 'O campo E-mail é obrigatório!'},
@@ -39,20 +44,23 @@ export class RegistroPage implements OnInit {
     ],
     confirmarsenha: [
       {tipo: 'required', mensagem: 'O campo senha é obrigatório!'},
-      {tipo: 'minLength', mensagem: 'A senha deve ter pelo menos 6 caracteres!'}
-    ],
-  }
+      {tipo: 'minLength', mensagem: 'A senha deve ter pelo menos 6 caracteres!'},
+      {tipo: 'comparacao', mensagem: 'Deve ser igual a Senha!'}
+    ]
+  };
 
   constructor(private formBuilder: FormBuilder, private router: Router) { 
     this.formRegistro = formBuilder.group({
       nome: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      cpf: ['', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(14)])],
+      cpf: ['', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(14), CpfValidator.cpfValido ])],
       dataNascimento: ['', Validators.compose([Validators.required])],
       genero: ['', Validators.compose([Validators.required])],
-      celular: ['', Validators.compose([Validators.maxLength(16)])],
+      celular: ['', Validators.compose([Validators.required, Validators.maxLength(16)])],
       email: ['', Validators.compose([Validators.required])],
       senha: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       confirmarsenha: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+    }, {
+      validators: ComparacaoValidator('senha', 'confirmarsenha')
     });
   }
 
